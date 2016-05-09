@@ -64,3 +64,228 @@ synth5propfcany
 
 avgpropfcany = (synth1propfcany+synth2propfcany+synth3propfcany+synth4propfcany+synth5propfcany)/5
 avgpropfcany
+
+#We compare proportions for each income bracket value.
+
+rawincb1 = 0
+rawincb2 = 0
+rawincb3 = 0
+rawincb4 = 0
+rawincb5 = 0
+
+for (i in 1:622)
+{
+  if (data$k10incb[i] == 1)
+  {a
+    rawincb1 = rawincb1 + 1
+  }
+  if (data$k10incb[i] == 2)
+  {
+    rawincb2 = rawincb2 + 1
+  }
+  if (data$k10incb[i] == 3)
+  {
+    rawincb3 = rawincb3 + 1
+  }
+  if (data$k10incb[i] == 4)
+  {
+    rawincb4 = rawincb4 + 1
+  }
+  if (data$k10incb[i] == 5)
+  {
+    rawincb5 = rawincb5 + 1
+  }
+}
+
+rawincb1/622
+rawincb2/622
+rawincb3/622
+rawincb4/622
+rawincb5/622
+
+
+
+synth1incb1 = 0
+synth1incb2 = 0
+synth1incb3 = 0
+synth1incb4 = 0
+synth1incb5 = 0
+
+for (i in 1:400)
+{
+  if (synthsubset1[i,4] == 1)
+  {
+    synth1incb1 = synth1incb1 + 1
+  }
+  if (synthsubset1[i,4] == 2)
+  {
+    synth1incb2 = synth1incb2 + 1
+  }
+  if (synthsubset1[i,4] == 3)
+  {
+    synth1incb3 = synth1incb3 + 1
+  }
+  if (synthsubset1[i,4] == 4)
+  {
+    synth1incb4 = synth1incb4 + 1
+  }
+  if (synthsubset1[i,4] == 5)
+  {
+    synth1incb5 = synth1incb5 + 1
+  }
+}
+
+synth1incb1/400
+synth1incb2/400
+synth1incb3/400
+synth1incb4/400
+synth1incb5/400
+
+
+synth2incb1 = 0
+synth2incb2 = 0
+synth2incb3 = 0
+synth2incb4 = 0
+synth2incb5 = 0
+
+for (i in 1:400)
+{
+  if (synthsubset2[i,4] == 1)
+  {
+    synth2incb1 = synth2incb1 + 1
+  }
+  if (synthsubset2[i,4] == 2)
+  {
+    synth2incb2 = synth2incb2 + 1
+  }
+  if (synthsubset2[i,4] == 3)
+  {
+    synth2incb3 = synth2incb3 + 1
+  }
+  if (synthsubset2[i,4] == 4)
+  {
+    synth2incb4 = synth2incb4 + 1
+  }
+  if (synthsubset2[i,4] == 5)
+  {
+    synth2incb5 = synth2incb5 + 1
+  }
+}
+
+synth2incb1/400
+synth2incb2/400
+synth2incb3/400
+synth2incb4/400
+synth2incb5/400
+
+
+synth3incb1 = 0
+synth3incb2 = 0
+synth3incb3 = 0
+synth3incb4 = 0
+synth3incb5 = 0
+
+for (i in 1:400)
+{
+  if (synthsubset3[i,4] == 1)
+  {
+    synth3incb1 = synth3incb1 + 1
+  }
+  if (synthsubset3[i,4] == 2)
+  {
+    synth3incb2 = synth3incb2 + 1
+  }
+  if (synthsubset3[i,4] == 3)
+  {
+    synth3incb3 = synth3incb3 + 1
+  }
+  if (synthsubset3[i,4] == 4)
+  {
+    synth3incb4 = synth3incb4 + 1
+  }
+  if (synthsubset3[i,4] == 5)
+  {
+    synth3incb5 = synth3incb5 + 1
+  }
+}
+
+synth3incb1/400
+synth3incb2/400
+synth3incb3/400
+synth3incb4/400
+synth3incb5/400
+
+
+synth4incb1 = 0
+synth4incb2 = 0
+synth4incb3 = 0
+synth4incb4 = 0
+synth4incb5 = 0
+
+for (i in 1:400)
+{
+  if (synthsubset4[i,4] == 1)
+  {
+    synth4incb1 = synth4incb1 + 1
+  }
+  if (synthsubset4[i,4] == 2)
+  {
+    synth4incb2 = synth4incb2 + 1
+  }
+  if (synthsubset4[i,4] == 3)
+  {
+    synth4incb3 = synth4incb3 + 1
+  }
+  if (synthsubset4[i,4] == 4)
+  {
+    synth4incb4 = synth4incb4 + 1
+  }
+  if (synthsubset4[i,4] == 5)
+  {
+    synth4incb5 = synth4incb5 + 1
+  }
+}
+
+synth4incb1/400
+synth4incb2/400
+synth4incb3/400
+synth4incb4/400
+synth4incb5/400
+
+
+
+synth5incb1 = 0
+synth5incb2 = 0
+synth5incb3 = 0
+synth5incb4 = 0
+synth5incb5 = 0
+
+for (i in 1:400)
+{
+  if (synthsubset5[i,4] == 1)
+  {
+    synth5incb1 = synth5incb1 + 1
+  }
+  if (synthsubset5[i,4] == 2)
+  {
+    synth5incb2 = synth5incb2 + 1
+  }
+  if (synthsubset5[i,4] == 3)
+  {
+    synth5incb3 = synth5incb3 + 1
+  }
+  if (synthsubset5[i,4] == 4)
+  {
+    synth5incb4 = synth5incb4 + 1
+  }
+  if (synthsubset5[i,4] == 5)
+  {
+    synth5incb5 = synth5incb5 + 1
+  }
+}
+
+synth5incb1/400
+synth5incb2/400
+synth5incb3/400
+synth5incb4/400
+synth5incb5/400
