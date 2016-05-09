@@ -53,8 +53,10 @@ library(rpart)
     fittrust <- rpart(rawsynth[,10] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,4] + rawsynth[,8] + rawsynth[,9] + rawsynth[,11], method='anova',control=rpart.control(minbucket=5, cp=0.01))
     fitfcany <- rpart(rawsynth[,11] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,4] + rawsynth[,8] + rawsynth[,9] + rawsynth[,10], method='anova',control=rpart.control(minbucket=5, cp=0.01))
 
-#we determine by the plots which variables depend on each other the most (see partialdataplots file)
-#so now we create a list of the variables to synthesize in order of decreasing dependency
+#we determine by the plots which variables depend on each other the most. This is simply
+#a visual check of looking at the plots for each variable (partialsetsplots file).
+
+#now we create a list of the variables to synthesize in order of decreasing dependency
 
 synvar <- c("fitwill","fitlfins","fitincb","fittrust","fitfcany")
 
