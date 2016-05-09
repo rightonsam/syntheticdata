@@ -1,0 +1,17 @@
+bayesianbootstrap <- function(x)
+{
+  n <-length(x)
+  u <- runif(n-1, min=0, max=1)
+  u[length(u)+1] <- 0
+  u[length(u)+1] <- 1
+  
+  u <- sort(u)
+  u
+  
+  g <- c(1:n)
+  for (i in 1:n)
+  {
+    g[i] = u[i+1]-u[i]
+  }
+  bb <- sample (x, n, replace = TRUE, prob = g)
+}
