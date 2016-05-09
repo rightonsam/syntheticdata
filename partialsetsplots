@@ -1,0 +1,22 @@
+plot(fitincb)
+text(fitincb)
+#lfins(9) = 5
+
+plot(fitfcany)
+text(fitfcany)
+#will(8) = 3
+
+plot(fitlfins)
+text(fitlfins)
+#will(8) = 1
+
+plot(fittrust)
+text(fittrust)
+#none
+
+plot(fitwill)
+text(fitwill)
+#lfins(9) = 1
+#incb(4) = 4
+
+#so our order is will(because it is higher up in two fits), lfins, incb, then random: trust, fcany
