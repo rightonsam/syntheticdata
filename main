@@ -1,0 +1,131 @@
+ProjRoot <- "C:\\Users\\slparsons\\Downloads"
+setwd(ProjRoot);
+
+data<-read.csv("hrsfulldatasetnov29.csv",header=T)
+
+#We create an array to store the dataset we created after taking out records with missing data points.
+rawsynth<-array(0,dim=c(622,15))
+
+for(i in 1:622)
+{
+  rawsynth[i,1]=data$kidid[i]
+  rawsynth[i,2]=data$k10mstat[i]
+  rawsynth[i,3]=data$k10educ[i]
+  rawsynth[i,4]=data$k10incb[i]
+  rawsynth[i,5]=data$k10incmin[i]
+  rawsynth[i,6]=data$k10incmax[i]
+  rawsynth[i,7]=data$k10nkid[i]
+  rawsynth[i,8]=data$k10will[i]
+  rawsynth[i,9]=data$k10lfins[i]
+  rawsynth[i,10]=data$k10trust[i]
+  rawsynth[i,11]=data$k10fcany[i]
+  rawsynth[i,12]=data$kp10resd[i]
+  rawsynth[i,13]=data$kp10work[i]
+  rawsynth[i,14]=data$k10gkids[i]
+  rawsynth[i,15]=data$k10age[i]
+}
+
+#import the rpart package
+library(rpart)
+
+#We select the key identifiers as: age, marital status, education, 
+#whether kid lives with respondent, number of kids, number 
+#of grandkids, and whether kid works(full/part).
+#The sensitive variables are then income bracket, income minimum, 
+#income maximum, whether the kid is in the will, whether the kid is 
+#beneficiary of life insurance, whether kid is beneficiary of trust, 
+#and whether kid recieved financial transfer..
+
+# We will synthesize the sensitive variables
+    
+    #create a classification tree
+    #the function requires 3 parameters rpart(function, method, data)
+    #the function is outcomevariable ~ predictorvar1+predictorvar2
+    #the method='class' if the outcome variable is a categorical variable
+    #the method='anova' if the outcome variable is a continuous variable
+    #the data=yourdataframe
+    #we also include some optional controls in the rpart function, making
+    #each node have at least five observations and the complexity parameter
+    #set to 0.01.
+    fitincb <- rpart(rawsynth[,4] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,8] + rawsynth[,9] + rawsynth[,10] + rawsynth[,11], method='anova',control=rpart.control(minbucket=5, cp=0.01))
+    fitwill <- rpart(rawsynth[,8] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,4] + rawsynth[,9] + rawsynth[,10] + rawsynth[,11], method='anova',control=rpart.control(minbucket=5, cp=0.01))
+    fitlfins <- rpart(rawsynth[,9] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,8] + rawsynth[,4] + rawsynth[,10] + rawsynth[,11], method='anova',control=rpart.control(minbucket=5, cp=0.01))
+    fittrust <- rpart(rawsynth[,10] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,4] + rawsynth[,8] + rawsynth[,9] + rawsynth[,11], method='anova',control=rpart.control(minbucket=5, cp=0.01))
+    fitfcany <- rpart(rawsynth[,11] ~ rawsynth[,2] + rawsynth[,3] + rawsynth[,7] + rawsynth[,13] + rawsynth[,14] + rawsynth[,15] + rawsynth[,12] + rawsynth[,4] + rawsynth[,8] + rawsynth[,9] + rawsynth[,10], method='anova',control=rpart.control(minbucket=5, cp=0.01))
+
+#we determine by the plots which variables depend on each other the most (see partialdataplots file)
+#so now we create a list of the variables to synthesize in order of decreasing dependency
+
+synvar <- c("fitwill","fitlfins","fitincb","fittrust","fitfcany")
+
+for (i in synvar)
+{
+
+#find which terminal node each observation is in
+    indices <- tapply(1:nrow(rawsynth), predict(get(i)))
+    
+    #loop to find how many terminal nodes are in CART
+    #max(indices) finds it as well
+    k=1
+    for (i in 1:length(indices))
+    {
+      if (indices[i] > k)
+      {
+        k=indices[i]
+      }
+    }
+    
+    #loop for number of terminal nodes
+    for (i in 1:k)
+    {
+      #create a vector which stores the index of observations in the leaf
+      list<-which(indices==k)
+      
+      #m is number of observations in leaf
+      m=length(indices[indices==k])
+      
+      #create an array which holds raw observation values of leaf
+      L=c(1:m)
+      for (p in 1:m)
+      {L[p]<-rawsynth[list[p],8]}
+      
+      #bootstrap raw data into vector which holds synthetic data
+      #bayesian bootstrap
+      RL <- bayesianbootstrap(L)
+      
+      #replace raw data in rawsynth dataframe with synthetic data
+      for (j in 1:m)
+      {rawsynth[list[j],8]=RL[j]}
+    }
+}
+
+#now we synthesize the income max and min to match the corresponding
+#new synthetic values of income bracket.
+for (i in 1:622)
+{
+ if (rawsynth[i,4] == 1)
+ {
+   rawsynth[i,5] = 0
+   rawsynth[i,6] = 10000
+ }
+  if (rawsynth[i,4] == 2)
+ {
+   rawsynth[i,5] = 10001
+   rawsynth[i,6] = 35000
+ }
+  if (rawsynth[i,4] == 3)
+ {
+   rawsynth[i,5] = 35001
+   rawsynth[i,6] = 70000
+ }
+  if (rawsynth[i,4] == 4)
+ {
+   rawsynth[i,5] = 35000
+   rawsynth[i,6] = 100000
+ }
+  if (rawsynth[i,4] == 5)
+ {
+   rawsynth[i,5] = 70000
+   rawsynth[i,6] = 100000
+ }
+}
