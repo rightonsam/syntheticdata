@@ -1,0 +1,31 @@
+#we want a subset approximately 2/3 of the size of the full dataset so we take 400 observations
+n = 400
+
+#we create a vector of numbers to sample from
+x<-c(1:length(rawsynth[,1]))
+    
+    #take a sample size n from x without replacement
+    rawsample <- sample(x,n,replace=F)
+    
+    #create array to put new data frame in
+    synthsubset5<-array(0,dim=c(n,15))
+
+    #put the subset into the new data frame
+    for (i in 1:n)
+    { 
+      synthsubset5[i,1]=rawsynth[rawsample[i],1]
+      synthsubset5[i,2]=rawsynth[rawsample[i],2]
+      synthsubset5[i,3]=rawsynth[rawsample[i],3]
+      synthsubset5[i,4]=rawsynth[rawsample[i],4]
+      synthsubset5[i,5]=rawsynth[rawsample[i],5]
+      synthsubset5[i,6]=rawsynth[rawsample[i],6]
+      synthsubset5[i,7]=rawsynth[rawsample[i],7]
+      synthsubset5[i,8]=rawsynth[rawsample[i],8]
+      synthsubset5[i,9]=rawsynth[rawsample[i],9]
+      synthsubset5[i,10]=rawsynth[rawsample[i],10]
+      synthsubset5[i,11]=rawsynth[rawsample[i],11]
+      synthsubset5[i,12]=rawsynth[rawsample[i],12]
+      synthsubset5[i,13]=rawsynth[rawsample[i],13]
+      synthsubset5[i,14]=rawsynth[rawsample[i],14]
+      synthsubset5[i,15]=rawsynth[rawsample[i],15]
+    }
