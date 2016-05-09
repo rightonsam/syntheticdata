@@ -1,0 +1,66 @@
+rawpropwill = sum(data$k10will)/622
+rawpropwill
+synth1propwill = sum(synthsubset1[,8])/400
+synth1propwill
+synth2propwill = sum(synthsubset2[,8])/400
+synth2propwill
+synth3propwill = sum(synthsubset3[,8])/400
+synth3propwill
+synth4propwill = sum(synthsubset4[,8])/400
+synth4propwill
+synth5propwill = sum(synthsubset5[,8])/400
+synth5propwill
+
+avgpropwill = (synth1propwill+synth2propwill+synth3propwill+synth4propwill+synth5propwill)/5
+avgpropwill
+
+#rawpropwillv = sqrt((rawpropwill*(1-rawpropwill))/622)
+#rawpropwillv
+
+rawproplfins = sum(data$k10lfins)/622
+rawproplfins
+synth1proplfins = sum(synthsubset1[,9])/400
+synth1proplfins
+synth2proplfins = sum(synthsubset2[,9])/400
+synth2proplfins
+synth3proplfins = sum(synthsubset3[,9])/400
+synth3proplfins
+synth4proplfins = sum(synthsubset4[,9])/400
+synth4proplfins
+synth5proplfins = sum(synthsubset5[,9])/400
+synth5proplfins
+
+avgproplfins = (synth1proplfins+synth2proplfins+synth3proplfins+synth4proplfins+synth5proplfins)/5
+avgproplfins
+
+rawproptrust = sum(data$k10trust)/622
+rawproptrust
+synth1proptrust = sum(synthsubset1[,10])/400
+synth1proptrust
+synth2proptrust = sum(synthsubset2[,10])/400
+synth2proptrust
+synth3proptrust = sum(synthsubset3[,10])/400
+synth3proptrust
+synth4proptrust = sum(synthsubset4[,10])/400
+synth4proptrust
+synth5proptrust = sum(synthsubset5[,10])/400
+synth5proptrust
+
+avgproptrust = (synth1proptrust+synth2proptrust+synth3proptrust+synth4proptrust+synth5proptrust)/5
+avgproptrust
+
+rawpropfcany = sum(data$k10fcany)/622
+rawpropfcany
+synth1propfcany = sum(synthsubset1[,11])/400
+synth1propfcany
+synth2propfcany = sum(synthsubset2[,11])/400
+synth2propfcany
+synth3propfcany = sum(synthsubset3[,11])/400
+synth3propfcany
+synth4propfcany = sum(synthsubset4[,11])/400
+synth4propfcany
+synth5propfcany = sum(synthsubset5[,11])/400
+synth5propfcany
+
+avgpropfcany = (synth1propfcany+synth2propfcany+synth3propfcany+synth4propfcany+synth5propfcany)/5
+avgpropfcany
